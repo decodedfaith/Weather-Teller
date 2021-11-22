@@ -1,6 +1,7 @@
 enum BottomSheetType {
   notification,
   forcastReport,
+  locationSearch,
 }
 
 enum ConnectivityStatus {

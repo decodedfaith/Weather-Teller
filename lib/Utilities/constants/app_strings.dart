@@ -28,6 +28,8 @@ const String weatherInfo = 'Its a sunny day in your location';
 const String minAgo10 = '10 minutes ago';
 const String daysAgo1 = '1 days ago';
 const String daysAgo2 = '2 days ago';
+const String hintText = 'Cities Search...';
+
 
 
 

@@ -5,7 +5,7 @@ import 'package:weather_test/Utilities/constants/colors.dart';
 import 'package:weather_test/Utilities/constants/text_styles.dart';
 import 'package:weather_test/Utilities/constants/ui_helpers.dart';
 import 'package:weather_test/ui/shared/widgets/custom_weather_display_box.dart';
-import 'package:weather_test/ui/view/locations/locations_viewmodel.dart';
+import 'package:weather_test/ui/view/locations/locations_view_model.dart';
 
 class LocationsView extends StatelessWidget {
   const LocationsView({Key? key}) : super(key: key);
@@ -41,29 +41,34 @@ class LocationsView extends StatelessWidget {
                       SizedBox(
                         width: UIHelper.width11(context),
                       ),
-                      Container(
-                        height: UIHelper.height43(context),
-                        width: UIHelper.width159(context),
-                        decoration: BoxDecoration(
-                          color: AppColors.whiteColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              UIHelper.width20(context),
+                      InkWell(
+                        onTap: () async{
+                          await model.goToLocationSerchView();
+                        },
+                        child: Container(
+                          height: UIHelper.height43(context),
+                          width: UIHelper.width159(context),
+                          decoration: BoxDecoration(
+                            color: AppColors.whiteColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                UIHelper.width20(context),
+                              ),
                             ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                              color: AppColors.whiteColor,
-                            ),
-                            Text(
-                              currentLocation,
-                              style: AppTextStyles.whiteNormalSize14(context),
-                            )
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                color: AppColors.whiteColor,
+                              ),
+                              Text(
+                                currentLocation,
+                                style: AppTextStyles.whiteNormalSize14(context),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -80,4 +85,3 @@ class LocationsView extends StatelessWidget {
     );
   }
 }
-
