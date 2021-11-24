@@ -35,112 +35,118 @@ class LocationSearchBottomSheetView extends StatelessWidget {
               minChildSize: 0.3,
               builder:
                   (BuildContext context, ScrollController scrollController) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(
-                        UIHelper.width30(context),
-                      ),
-                      topRight: Radius.circular(
-                        UIHelper.width30(context),
+                return SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          UIHelper.width30(context),
+                        ),
+                        topRight: Radius.circular(
+                          UIHelper.width30(context),
+                        ),
                       ),
                     ),
-                  ),
-                  height: displayHeight(context) * 0.7672,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: UIHelper.width21(context),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        UIHelper.sizedBoxSpace22(context),
-                        Center(
-                          child: SizedBox(
-                            child: Divider(
-                              thickness: UIHelper.width2(context),
+                    height: displayHeight(context) * 0.7672,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: UIHelper.width21(context),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          UIHelper.sizedBoxSpace22(context),
+                          Center(
+                            child: SizedBox(
+                              child: Divider(
+                                thickness: UIHelper.width2(context),
+                              ),
+                              width: UIHelper.width100(context),
                             ),
-                            width: UIHelper.width100(context),
                           ),
-                        ),
-                        UIHelper.sizedBoxSpace19(context),
-                        SizedBox(
-                          height: UIHelper.height60(context),
-                          child: TextField(
-                            textAlignVertical: TextAlignVertical.center,
-                            // controller: searchController,
-                            keyboardType: TextInputType.text,
-                            maxLines: 1,
-                            cursorColor: AppColors.appMainColor,
-                            // onChanged: model.onChanged,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    UIHelper.width4(context),
+                          UIHelper.sizedBoxSpace19(context),
+                          SizedBox(
+                            height: UIHelper.height60(context),
+                            child: TextField(
+                              textAlignVertical: TextAlignVertical.center,
+                              // controller: locationSearchController,
+                              keyboardType: TextInputType.text,
+                              maxLines: 1,
+                              cursorColor: AppColors.appMainColor,
+                              // onChanged: model.onChanged,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      UIHelper.width4(context),
+                                    ),
                                   ),
+                                  borderSide: BorderSide(
+                                      color: AppColors.borderColor,
+                                      width: UIHelper.borderwidth(context),
+                                      style: BorderStyle.solid),
                                 ),
-                                borderSide: BorderSide(
-                                    color: AppColors.borderColor,
-                                    width: UIHelper.borderwidth(context),
-                                    style: BorderStyle.solid),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    UIHelper.width4(context),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      UIHelper.width4(context),
+                                    ),
                                   ),
+                                  borderSide: BorderSide(
+                                      color: AppColors.borderColor,
+                                      width: UIHelper.borderwidth(context),
+                                      style: BorderStyle.solid),
                                 ),
-                                borderSide: BorderSide(
-                                    color: AppColors.borderColor,
-                                    width: UIHelper.borderwidth(context),
-                                    style: BorderStyle.solid),
-                              ),
-                              prefixIcon: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_ios_outlined,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .color,
+                                prefixIcon: IconButton(
+                                  onPressed: () {
+                                    model.navigateLocationSearchView();
+                                  },
+                                  icon: Icon(
+                                    Icons.arrow_back_ios_outlined,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .color,
+                                  ),
+                                  iconSize: UIHelper.width18(context),
                                 ),
-                                iconSize: UIHelper.width18(context),
-                                onPressed: () {},
+                                hintText: hintText,
+                                hintStyle:
+                                    AppTextStyles.blackNormalSize14InterFont(
+                                        context),
                               ),
-                              hintText: hintText,
-                              hintStyle:
-                                  AppTextStyles.blackNormalSize14InterFont(
-                                      context),
                             ),
                           ),
-                        ),
-                        UIHelper.sizedBoxSpace19(context),
-                        Center(
-                          child: Text(
-                            'Suggestions',
-                            style: AppTextStyles.blackBoldSize22(context),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, i) {
-                              return Text(
-                                'kkkkkk',
-                                style: AppTextStyles.blackBoldSize22(context),
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext cotext, int index) => SizedBox(
-                              child: const Divider(),
-                              height: UIHelper.height15(context),
+                          UIHelper.sizedBoxSpace19(context),
+                          Center(
+                            child: Text(
+                              'Suggestions',
+                              style: AppTextStyles.blackBoldSize22(context),
                             ),
-                            itemCount: 5,
                           ),
-                        )
-                      ],
+                          Expanded(
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, i) {
+                                return Text(
+                                  'kkkkkk',
+                                  style: AppTextStyles.blackBoldSize22(context),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext cotext, int index) => SizedBox(
+                                child: const Divider(),
+                                height: UIHelper.height15(context),
+                              ),
+                              itemCount: 5,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );
