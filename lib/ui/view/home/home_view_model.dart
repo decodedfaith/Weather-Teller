@@ -9,6 +9,8 @@ class HomeViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
   final log = getLogger('HomeViewModel');
+  List<bool> isSelected = [true, false];
+
 
   Future<void> goToForecastReport() async {
     var sheetResponse = await _bottomSheetService.showCustomSheet(

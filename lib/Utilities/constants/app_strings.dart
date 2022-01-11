@@ -2,7 +2,8 @@ const String currentLocation = 'Lagos, Nigeria';
 const String today = 'Today';
 const String date = 'Mon, 28 Apr';
 const String celciusNo = '28';
-const String celciusSymbol = '°C';
+const String celciusSym = '°C';
+const String fahrenheitSym = '°F';
 const String locationAndTime = 'Lagos, Nigeria. 2.00 p.m';
 const String forecastReport = 'Forecast report';
 const String day = 'Today';
@@ -29,9 +30,8 @@ const String minAgo10 = '10 minutes ago';
 const String daysAgo1 = '1 days ago';
 const String daysAgo2 = '2 days ago';
 const String hintText = 'Cities Search...';
-
-
-
+const String suggestions = 'Suggestions';
+const String typeForSuggestions = 'type to start searching for cities';
 
 //Assets Icons paths
 const String weatherIcon = 'assets/icons/weatherIcon.png';
@@ -40,3 +40,4 @@ const String sunRise = 'assets/icons/sunrise.png';
 const String sunSet = 'assets/icons/sunset.png';
 const String sunAndMoon = 'assets/icons/sunAndMoonIcon.png';
 const String sunny = 'assets/icons/wb_sunny.png';
+const String weatherWebIconSuffix = '@2x.png';

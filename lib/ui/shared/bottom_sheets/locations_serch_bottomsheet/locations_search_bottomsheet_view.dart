@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -7,6 +9,8 @@ import 'package:weather_test/Utilities/constants/colors.dart';
 import 'package:weather_test/Utilities/constants/sizes_helpers.dart';
 import 'package:weather_test/Utilities/constants/text_styles.dart';
 import 'package:weather_test/Utilities/constants/ui_helpers.dart';
+import 'package:weather_test/models/locations_search_models.dart';
+import 'package:weather_test/ui/shared/bottom_sheets/locations_serch_bottomsheet/locations_search_bottomsheet_view.form.dart';
 import 'package:weather_test/ui/shared/bottom_sheets/locations_serch_bottomsheet/locations_search_bottomsheet_viewmodel.dart';
 import 'package:weather_test/ui/shared/widgets/app_loader.dart';
 
@@ -15,10 +19,11 @@ import 'package:weather_test/ui/shared/widgets/app_loader.dart';
     FormTextField(name: 'locationSearch'),
   ],
 )
-class LocationSearchBottomSheetView extends StatelessWidget {
+class LocationSearchBottomSheetView extends StatelessWidget
+    with $LocationSearchBottomSheetView {
   final SheetRequest request;
   final Function(SheetResponse) completer;
-  const LocationSearchBottomSheetView({
+  LocationSearchBottomSheetView({
     Key? key,
     required this.request,
     required this.completer,
@@ -27,18 +32,20 @@ class LocationSearchBottomSheetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LocationSearchBottomSheetViewModel>.reactive(
+      onModelReady: (model) => listenToFormUpdated(model),
       builder: (context, model, child) => model.isBusy
           ? const AppLoader()
           : DraggableScrollableSheet(
-              maxChildSize: 0.8,
+              maxChildSize: 1,
               initialChildSize: 0.8,
               minChildSize: 0.3,
               builder:
                   (BuildContext context, ScrollController scrollController) {
-                return SingleChildScrollView(
+                return GestureDetector(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
                   child: Container(
-                    margin: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
                     decoration: BoxDecoration(
                       color: AppColors.whiteColor,
                       borderRadius: BorderRadius.only(
@@ -72,11 +79,11 @@ class LocationSearchBottomSheetView extends StatelessWidget {
                             height: UIHelper.height60(context),
                             child: TextField(
                               textAlignVertical: TextAlignVertical.center,
-                              // controller: locationSearchController,
+                              controller: locationSearchController,
                               keyboardType: TextInputType.text,
                               maxLines: 1,
                               cursorColor: AppColors.appMainColor,
-                              // onChanged: model.onChanged,
+                              // onChanged: ,
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -102,7 +109,7 @@ class LocationSearchBottomSheetView extends StatelessWidget {
                                 ),
                                 prefixIcon: IconButton(
                                   onPressed: () {
-                                    model.navigateLocationSearchView();
+                                    model.navigateToLocationSearchView();
                                   },
                                   icon: Icon(
                                     Icons.arrow_back_ios_outlined,
@@ -123,26 +130,52 @@ class LocationSearchBottomSheetView extends StatelessWidget {
                           UIHelper.sizedBoxSpace19(context),
                           Center(
                             child: Text(
-                              'Suggestions',
-                              style: AppTextStyles.blackBoldSize22(context),
+                              suggestions,
+                              style: AppTextStyles.greyNormalSize16InterFont(
+                                  context,),
                             ),
                           ),
                           Expanded(
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: const BouncingScrollPhysics(),
-                              itemBuilder: (context, i) {
-                                return Text(
-                                  'kkkkkk',
-                                  style: AppTextStyles.blackBoldSize22(context),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext cotext, int index) => SizedBox(
-                                child: const Divider(),
-                                height: UIHelper.height15(context),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  if (!model.hasAutoCompleteResults)
+                                  // if (!model.hasAutoCompleteResults)
+                                    const Text(
+                                      typeForSuggestions,
+                                    ),
+                                  if (model.hasAutoCompleteResults)
+                                  // if (model.hasAutoCompleteResults)
+                                    ...model.autoCompleteResults.map(
+                                      (e) => ListTile(
+                                        onTap: () {
+                                          completer(
+                                            SheetResponse(
+                                              data: e,
+                                              confirmed: true,
+                                            ),
+                                          );
+                                        },
+                                        title: Text(e.state ?? ''),
+                                        subtitle: Text(e.country ?? ''),
+                                      ),
+                                    ),
+                                    // ...model.autoCompleteResults.map(
+                                    //   (e) => ListTile(
+                                    //     onTap: () {
+                                    //       completer(
+                                    //         SheetResponse(
+                                    //           data: e,
+                                    //           confirmed: true,
+                                    //         ),
+                                    //       );
+                                    //     },
+                                    //     title: Text(e.mainText ?? ''),
+                                    //     subtitle: Text(e.secondaryText ?? ''),
+                                    //   ),
+                                    // ),
+                                ],
                               ),
-                              itemCount: 5,
                             ),
                           )
                         ],

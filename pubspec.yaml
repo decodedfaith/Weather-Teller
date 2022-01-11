@@ -18,8 +18,10 @@ dependencies:
   stacked_services: ^0.8.15
   logger: ^1.1.0
   shared_preferences: ^2.0.9
-  connectivity_plus: ^2.0.3
+  # connectivity_plus: ^2.0.3
   dio: ^4.0.3
+  # timezone: ^0.8.0
+
 
 
 dev_dependencies:

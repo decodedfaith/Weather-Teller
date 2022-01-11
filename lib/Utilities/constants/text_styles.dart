@@ -12,6 +12,7 @@ class AppTextStyles {
 
   //?Text Styles go below
   //colorSizeFontWeight Textstyles
+
   static TextStyle greyNormalSize10InterFont(BuildContext context) {
     return _baseWithInterfont(
       UIHelper.width10(context),
@@ -82,6 +83,14 @@ class AppTextStyles {
       UIHelper.width16(context),
       _normalWeight,
       AppColors.blackColor,
+    );
+  }
+
+  static TextStyle greyNormalSize16InterFont(BuildContext context) {
+    return _baseWithInterfont(
+      UIHelper.width16(context),
+      _normalWeight,
+      AppColors.greyColor,
     );
   }
 

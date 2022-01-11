@@ -82,7 +82,9 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   UIHelper.sizedBoxSpace102(context),
-                  const CustomWeatherDisplayBox(),
+                  CustomWeatherDisplayBox(
+                    model: model,
+                  ),
                   UIHelper.sizedBoxSpace121(context),
                   InkWell(
                     onTap: () async {

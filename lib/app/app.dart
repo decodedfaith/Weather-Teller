@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:weather_test/services/app_services/connectivity_service.dart';
 import 'package:weather_test/services/app_services/local_storage_services.dart';
 import 'package:weather_test/ui/view/home/home_view.dart';
 import 'package:weather_test/ui/view/locations/locations_view.dart';
@@ -21,10 +20,10 @@ import 'package:weather_test/ui/view/locations/locations_view.dart';
       classType: SharedPreferenceLocalStorage,
       presolveUsing: SharedPreferences.getInstance,
     ),
-    Presolve(
-      classType: ConnectivityService,
-      presolveUsing: ConnectivityService.getInstance,
-    ),
+    // Presolve(
+    //   classType: ConnectivityService,
+    //   presolveUsing: ConnectivityService.getInstance,
+    // ),
   ],
   logger: StackedLogger(),
 )

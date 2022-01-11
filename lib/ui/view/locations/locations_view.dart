@@ -22,7 +22,7 @@ class LocationsView extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: AppColors.appMainColor,
               ),
-              child: Column(
+              child: ListView(
                 children: [
                   UIHelper.sizedBoxSpace10(context),
                   Row(
@@ -42,7 +42,7 @@ class LocationsView extends StatelessWidget {
                         width: UIHelper.width11(context),
                       ),
                       InkWell(
-                        onTap: () async{
+                        onTap: () async {
                           await model.goToLocationSerchView();
                         },
                         child: Container(
@@ -74,7 +74,45 @@ class LocationsView extends StatelessWidget {
                     ],
                   ),
                   UIHelper.sizedBoxSpace102(context),
-                  const CustomWeatherDisplayBox(),
+                  CustomWeatherDisplayBox(model: model),
+                  UIHelper.sizedBoxSpace102(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ToggleButtons(
+                        children: [
+                          Text(
+                            celciusSym,
+                            style: AppTextStyles.whiteNormalSize19(context),
+                          ),
+                          Text(
+                            fahrenheitSym,
+                            style: AppTextStyles.whiteNormalSize19(context),
+                          ),
+                        ],
+                        isSelected: model.isSelected,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            UIHelper.width10(context),
+                          ),
+                        ),
+                        fillColor: AppColors.lightBluePurpleColor,
+                        renderBorder: false,
+                        onPressed: (int newIndex) {
+                          model.changeUnit(newIndex);
+                        },
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          await model.goToLocationSerchView();
+                        },
+                        icon: const Icon(
+                          Icons.add_circle_outline_rounded,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
