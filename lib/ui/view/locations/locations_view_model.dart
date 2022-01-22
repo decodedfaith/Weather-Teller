@@ -11,30 +11,22 @@ import 'package:weather_test/models/weather_data_model.dart';
 
 class LocationsViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
-
   final _navigationService = locator<NavigationService>();
-
-  final log = getLogger('LocationsViewModel');
-
+  final _log = getLogger('LocationsViewModel');
   final _apiService = WeatherAppApi(weatherBaseUrl);
 
   LocationDescription? _searchedCity;
-
-  LocationDescription get searchedCity => _searchedCity!;
-
-  bool get hasSearchedCity => _searchedCity != null;
-
   WeatherDataModel? _cityWeatherResult;
-
+  double? fahrenheitValue;
+  List<bool> isSelected = [true, false];
+  bool check = true;
+  
+  LocationDescription get searchedCity => _searchedCity!;
   WeatherDataModel get cityWeatherResult => _cityWeatherResult!;
-
+  bool get hasSearchedCity => _searchedCity != null;
   bool get hascityWeatherResult => _cityWeatherResult != null;
 
-  List<bool> isSelected = [true, false];
-
-  bool check = true;
-
-  double? fahrenheitValue;
+  
 
   changeUnit(status) {
     for (int index = 0; index < isSelected.length; index++) {
@@ -49,7 +41,6 @@ class LocationsViewModel extends BaseViewModel {
     if (_cityWeatherResult != null) {
       // fahrenheitConverter();
     }
-
     notifyListeners();
   }
 
@@ -59,8 +50,8 @@ class LocationsViewModel extends BaseViewModel {
       fahrenheitValue =
           (1.8 * _cityWeatherResult!.temp!.toInt() + 32).toDouble();
       fahrenheitValue = fahrenheitValue!.round().toDouble();
-      log.i('$fahrenheitValue hhhhhhhhhhh');
-      log.i('Convertion in progress');
+      _log.i('$fahrenheitValue hhhhhhhhhhh');
+      _log.i('Convertion in progress');
     }
     return;
   }
@@ -75,14 +66,14 @@ class LocationsViewModel extends BaseViewModel {
       isScrollControlled: true,
     );
 
-    log.i('response: ${sheetResponse?.data.state}');
-    log.i(
+    _log.i('response: ${sheetResponse?.data.state}');
+    _log.i(
         'rrrrrrrrrrrr_setLocationWeatherCondition..............................');
 
     if (sheetResponse != null) {
       _searchedCity = sheetResponse.data;
       _setLocationWeatherCondition();
-      log.i('_setLocationWeatherCondition..............................');
+      _log.i('_setLocationWeatherCondition..............................');
 
       notifyListeners();
     }
@@ -96,16 +87,16 @@ class LocationsViewModel extends BaseViewModel {
     final _cityWeatherApiResult =
         await _apiService.fetchCityWeatherInfo(endPointParams);
 
-    log.i(_cityWeatherApiResult.id.toString());
-    log.i(_cityWeatherApiResult.id.toString());
-    log.i(_cityWeatherApiResult.id.toString());
+    _log.i(_cityWeatherApiResult.id.toString());
+    _log.i(_cityWeatherApiResult.id.toString());
+    _log.i(_cityWeatherApiResult.id.toString());
 
     if (_cityWeatherApiResult != null) {
       _cityWeatherResult = _cityWeatherApiResult;
       fahrenheitConverter();
       notifyListeners();
-      log.i('${_cityWeatherResult!.temp}');
-      log.i('Weather data passed into the UI');
+      _log.i('${_cityWeatherResult!.temp}');
+      _log.i('Weather data passed into the UI');
     }
   }
 }
